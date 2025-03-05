@@ -22,7 +22,7 @@ function GenreSelect(){
             <h1> We recommend these genres based on your mood: {mood}</h1>
             
             {genres.map((genre) => (
-                <button key={genre} onClick={() => navigate(`/films?byMood?mood=${genre}`)}> {genre}</button>
+                <button key={genre} onClick={() => navigate(`/films?genre=${genre}`)}> {genre}</button>
             ))}
             <button onClick={() => navigate("/")}>Go back</button>
         </div>

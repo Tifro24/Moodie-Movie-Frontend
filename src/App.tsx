@@ -4,6 +4,7 @@ import Home from './Home';
 import OpenUrlButton from './OpenUrlButton'
 import Header from './Header'
 import GenreSelect from './GenreSelect';
+import Films from './Films';
 
 function App() {
  
@@ -13,7 +14,8 @@ function App() {
     <Router>  
     <Routes> 
       <Route path="/" element={<Home />} />
-      <Route path="/genres" element={<GenreSelect />} />        
+      <Route path="/genres" element={<GenreSelect />} />
+      <Route path="/films" element={<Films />} />     
     </Routes>
   </Router>
     </>
