@@ -1,10 +1,12 @@
-import './App.css'
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Home';
-import OpenUrlButton from './OpenUrlButton'
-import Header from './Header'
-import GenreSelect from './GenreSelect';
+import GenreSelectPage from './components/GenreSelectPage';
 import Films from './Films';
+import LandingPage from './components/LandingPage';
+import WelcomePage from "./components/WelcomePage";
+import MoodsPage from "./components/MoodsPage";
+import SearchFilmsPage from "./components/SearchFilmsPage";
 
 function App() {
  
@@ -13,9 +15,12 @@ function App() {
     <>
     <Router>  
     <Routes> 
-      <Route path="/" element={<Home />} />
-      <Route path="/genres" element={<GenreSelect />} />
-      <Route path="/films" element={<Films />} />     
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/welcome" element={<WelcomePage />} />
+      <Route path="/moods" element={<MoodsPage />} />
+      <Route path="/genres" element={<GenreSelectPage />} />
+      <Route path="/films" element={<Films />} />
+      <Route path="/search" element={<SearchFilmsPage />} />     
     </Routes>
   </Router>
     </>
