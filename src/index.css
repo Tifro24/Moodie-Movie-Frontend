@@ -26,16 +26,18 @@
   }
 }
 
-.landingPage{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  animation: backgroundAnimation 10s infinite alternate;
-  transition: background-color 2s ease-in-out;
+@keyframes fadeOut{
+  from {
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+    pointer-events: none;
+  }
 }
+
+
+  
 
 .landingPage h1{
   font-size: 5rem;
@@ -48,6 +50,9 @@
   opacity: 0;
 }
 
+.fade-out{
+  animation: fadeOut 1s forwards;
+}
 
 
 
@@ -117,4 +122,46 @@
   font-size: 1rem;
   color: red;
   text-align: center;
+}
+
+
+
+.fade-in-title{
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.5s forwards;
+  text-align: center;
+}
+
+.fade-in-subtitle{
+  opacity: 0;
+  animation: fadeIn 1s ease-out 1.5s forwards;
+}
+
+.button-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.fade-in-button{
+  opacity: 0;
+  animation: fadeIn 1s ease-out 2s forwards;
+}
+
+.app-background {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: backgroundAnimation 10s infinite alternate;
+  transition: background-colour 2s ease-in-out;
+}
+
+.page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

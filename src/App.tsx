@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-    <Router>  
+    <div className="app-background"><Router>  
     <Routes> 
       <Route path="/" element={<LandingPage />} />
       <Route path="/welcome" element={<WelcomePage />} />
@@ -22,7 +22,8 @@ function App() {
       <Route path="/films" element={<Films />} />
       <Route path="/search" element={<SearchFilmsPage />} />     
     </Routes>
-  </Router>
+  </Router></div>
+    
     </>
   )
 }

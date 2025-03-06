@@ -10,7 +10,7 @@ function MoodsPage(){
 
     return(
         <div className="moods-page">
-            <h1>Seleect Your Moods</h1>
+            <h1>Select Your Mood</h1>
             <div className="moods-buttons">
                 {moods.map((mood) => (
                     <button 

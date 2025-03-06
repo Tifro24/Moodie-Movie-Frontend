@@ -8,6 +8,7 @@ function LandingPage() {
     const [letterClasses, setLetterClasses] = useState<string[]>(new Array(12).fill("default-colour"))
     const [userName, setUserName] = useState("");
     const [error, setError] = useState("");
+    const [fadeOut, setFadeOut] = useState(false)
     const navigate = useNavigate();
 
     const handleLetterClick = (index: number) => {
@@ -23,14 +24,19 @@ function LandingPage() {
         e.preventDefault();
         if (userName.trim()){
             setError("");
-            navigate(`/welcome?userName=${encodeURIComponent(userName)}`);
-        } else{
-            setError("Please enter your name.")
+            setFadeOut(true)
+
+            setTimeout(() => {
+                navigate(`/welcome?userName=${encodeURIComponent(userName)}`);
+            }, 1000); 
+        } else {
+                setError("Please enter your name.")
         }
+        
     };
 
     return(
-        <div className="landingPage">
+        <div className= {`page-container landingPage ${fadeOut ? "fade-out" : ""}`}>
             <h1 className="fade-in-title">{"Moodie Movie".split("").map((letter, index) => (
                 <span
                 key={index}
