@@ -8,9 +8,9 @@ function Home() {
   return (
     <div className="Homepage">
       <Header />
-      <div className="hpButtons">
+      <div className="btns">
         {moods.map((mood) => (
-            <button key={mood} onClick={() => navigate(`/genres?mood=${mood.toLowerCase()}`)}>
+            <button className="btn" key={mood} onClick={() => navigate(`/genres?mood=${mood.toLowerCase()}`)}>
             {mood}
             </button>
          ))}

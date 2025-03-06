@@ -243,3 +243,58 @@
   transform: scale(1.02);
 }
 
+.moods-page{
+  display: flex;
+  gap: 20px;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  padding-bottom: 50px;
+}
+
+.moods-buttons{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap:20px;
+  text-align: center;
+  width: 70%;
+  padding-top: 30px;
+}
+
+.moods-buttons .mood-button{
+  padding: 10px 20px;
+  font-size: 2rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  min-width: 300px;
+}
+
+.mood-button:hover{
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+.moods-page h1{
+ font-size: 4.2rem;
+}
+
+.fadeOut{
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.moods-page .fade-in-button{
+  opacity: 0;
+  animation: fadeIn 1s ease-out 1s forwards;
+}
+

@@ -9,9 +9,9 @@ function MoodsPage(){
     const moods = ["Happy", "Sad", "Adventurous", "Studious", "Funny", "Excited", "Scary"];
 
     return(
-        <div className="moods-page">
-            <h1>Select Your Mood</h1>
-            <div className="moods-buttons">
+        <div className="moods-page page-container">
+            <h1 className="fade-in-title">Select Your Mood</h1>
+            <div className="moods-buttons fade-in-button">
                 {moods.map((mood) => (
                     <button 
                     key={mood}
