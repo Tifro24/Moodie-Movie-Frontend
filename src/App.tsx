@@ -1,12 +1,12 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Home';
-import GenreSelectPage from './components/GenreSelectPage';
+import GenreSelectPage from './pages/GenreSelectPage';
 import Films from './Films';
-import LandingPage from './components/LandingPage';
-import WelcomePage from "./components/WelcomePage";
-import MoodsPage from "./components/MoodsPage";
-import SearchFilmsPage from "./components/SearchFilmsPage";
+import LandingPage from './pages/LandingPage';
+import WelcomePage from "./pages/WelcomePage";
+import MoodsPage from "./pages/MoodsPage";
+import SearchFilmsPage from "./pages/SearchFilmsPage";
 
 function App() {
  
