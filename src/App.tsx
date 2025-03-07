@@ -1,8 +1,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from './Home';
 import GenreSelectPage from './pages/GenreSelectPage';
-import Films from './Films';
+import Films from './pages/Films';
 import LandingPage from './pages/LandingPage';
 import WelcomePage from "./pages/WelcomePage";
 import MoodsPage from "./pages/MoodsPage";

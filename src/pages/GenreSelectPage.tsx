@@ -23,7 +23,7 @@ function GenreSelectPage(){
             setGenres(data.map((category:any) => category.category))
         })
         .catch(error => console.error("Error fetching genres:", error))
-    }, [mood]);
+    }, [mood, navigate]);
     
     return (
         <div className={`genre-select-page page-container ${fadeOut ? "fade-out" : ""}`}>

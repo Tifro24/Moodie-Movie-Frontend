@@ -360,16 +360,26 @@ width: 80%;
 }
 
 .films-page{
+  display: flex;
   text-align: center;
+  flex-direction: column;
+  justify-content: center;
   padding: 20px;
+}
+
+.films-page h1{
+  font-size: 3rem;
 }
 
 .film-container{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
+  gap: 40px;
   justify-content: center;
   margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 1s forwards;
+  
 }
 
 .film-card{
@@ -394,4 +404,94 @@ width: 80%;
   border-radius: 8px;
   margin-bottom: 10px;
   
+}
+
+.modal-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.modal-content{
+  position: fixed;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 50%;
+  height: 80%;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+}
+
+.model-text{
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.modal-film-poster{
+  width: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+.modal-content ul {
+  padding-left: 20px;
+  list-style: none;
+}
+
+.modal-content button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  border: none;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.modal-content button:hover {
+  background: #0056b3;
+}
+
+.go-back-button{
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  left: 50%;
+  border: none;
+  background-color: #ff0000;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  width:200px;
+  margin-top: 20px;
+  
+}
+
+.go-back-button:hover{
+  background-color: #c20505;
+  transform: scale(2);
 }

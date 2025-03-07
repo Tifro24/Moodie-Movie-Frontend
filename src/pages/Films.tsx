@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import FilmModal from "../Modal";
 
 interface Cast {
     fullName: string;
@@ -7,9 +8,8 @@ interface Cast {
   
   interface Film {
     title: string;
-    description: string;
-    rating: string
-    length: number
+    description: string
+    language: string
     cast: Cast[];
   }
 
@@ -19,9 +19,12 @@ interface Cast {
 
 function Films() {
     const [films, setFilms] = useState<Film[]>([]);
-    const [selectedFilm, setSelectedFilm] = useState<{ title: string; description: string; rating: string; length: number; cast: Cast[]; poster: string } | null>(null);
+    const [selectedFilm, setSelectedFilm] = useState<{ title: string; description: string; language: string; cast: Cast[]; poster: string } | null>(null);
     const [searchParams] = useSearchParams();
     const genre = searchParams.get("genre")
+    const [fadeOut, setFadeOut] = useState(false);
+    const navigate = useNavigate();
+    
 
     console.log("Selected Genre:", genre);
 
@@ -43,6 +46,14 @@ function Films() {
         fetchFilms();
     }, [genre])
 
+    const handleGoBack = () => {
+        setFadeOut(true);
+        setTimeout(() => {
+            navigate(`/genres?mood=${genre}`, { replace: true });
+            setFilms([]);
+        }, 500);
+    };
+
 return(
     <div className="films-page">
             <h1 className="fade-in-title">Films in {genre}</h1>
@@ -50,15 +61,15 @@ return(
                 {films.map((film, index) => {
                     const poster = moviePosters[index % moviePosters.length];
                     return (
-                        <div key={index} className="film-card" onClick={() => setSelectedFilm({
+                        <div key={index} className="film-card" onClick={() => { console.log(film); setSelectedFilm({
                             title: film.title,
                             description: film.description,
-                            rating: film.rating,
-                            length: film.length,
+                            language: film.language,
                             cast: film.cast,
-                            poster: poster
-                        })}>
-                            <div> {/* Ensures JSX has a single parent element */}
+                            poster: poster,
+                            
+                        })}}>
+                            <div>
                                 <img src={poster} alt="Film Poster" className="film-poster" />
                                 <h2>{film.title}</h2>
                                 <p>{film.description}</p>
@@ -67,6 +78,8 @@ return(
                     );
                 })}
             </div>
+            <button className="fade-in-button go-back-button" onClick={handleGoBack}>Go Back</button>
+            {selectedFilm && <FilmModal film={selectedFilm} onClose={() => setSelectedFilm(null)} />}
         </div>
     
     )
