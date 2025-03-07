@@ -6,6 +6,13 @@ function GenreSelectPage(){
     const [searchParams]  = useSearchParams();
     const mood = searchParams.get("mood");
     const navigate = useNavigate();
+    const [fadeOut, setFadeOut] = useState(false);
+    const handleNavigation = (path: string) => {
+        setFadeOut(true);
+        setTimeout(() => {
+            navigate(path);
+        }, 1000)
+    }
 
 
     useEffect(() => {
@@ -19,16 +26,17 @@ function GenreSelectPage(){
     }, [mood]);
     
     return (
-        <div className="genre-select-page">
-            <h1> We recommend these genres based on your chosen mood: {`(${mood})`}</h1>
-            <div className="genre-buttons">
+        <div className={`genre-select-page page-container ${fadeOut ? "fade-out" : ""}`}>
+            <h1 className="fade-in-title"> We recommend these genres based on your chosen mood!</h1>
+            <div className="genre-buttons fade-in-button">
                     {genres.map((genre) => (
-                        <button className="genre-button" key={genre} onClick={() => navigate(`/films?genre=${genre}`)}> 
+                        <button className="genre-button" key={genre} onClick={() => handleNavigation(`/films?genre=${genre}`)}> 
                         {genre}
                         </button>
                     ))}
+                        <button className="back-button fade-in-button" onClick={() => handleNavigation("/moods")}>Go back</button>
             </div>
-            <button className="back-button" onClick={() => navigate("/moods")}>Go back</button>
+            
         </div>
     )
 }

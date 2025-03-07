@@ -287,7 +287,7 @@
  font-size: 4.2rem;
 }
 
-.fadeOut{
+.fade-out{
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   pointer-events: none;
@@ -298,3 +298,100 @@
   animation: fadeIn 1s ease-out 1s forwards;
 }
 
+.genre-select-page h1{
+font-size: 3rem;
+width: 80%;
+}
+
+.genre-select-page{
+  gap: 20px;
+}
+
+.genre-buttons{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap:20px;
+  text-align: center;
+  width: 70%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.genre-button{
+  padding: 10px 20px;
+  font-size: 2rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  min-width: 300px;
+}
+
+.genre-button:hover{
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+.back-button{
+  padding: 10px 20px;
+  font-size: 2rem;
+  border: none;
+  background-color: #ff0000;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  min-width: 300px;
+}
+
+.back-button:hover{
+  background-color: #c20505;
+  transform: scale(2);
+}
+
+.films-page{
+  text-align: center;
+  padding: 20px;
+}
+
+.film-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.film-card{
+  background: #e9dada;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+  
+}
+
+.film-card:hover {
+  transform: scale(1.05);
+}
+
+.film-poster{
+  width: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  
+}
