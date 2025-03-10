@@ -55,7 +55,7 @@ function Films() {
     };
 
 return(
-    <div className="films-page">
+    <div className={`films-page ${fadeOut ? "fade-out" : ""}`}>
             <h1 className="fade-in-title">Films in {genre}</h1>
             <div className="film-container">
                 {films.map((film, index) => {
