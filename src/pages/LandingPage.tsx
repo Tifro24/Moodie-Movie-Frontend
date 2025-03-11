@@ -26,6 +26,8 @@ function LandingPage() {
             setError("");
             setFadeOut(true)
 
+            localStorage.setItem("userName", userName)
+
             setTimeout(() => {
                 navigate(`/welcome?userName=${encodeURIComponent(userName)}`);
             }, 1000); 

@@ -1,14 +1,14 @@
 
-import { useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function WelcomePage(){
-    const [searchParams] = useSearchParams();
-    const userName = searchParams.get("userName")
+    const [userName, setUserName] = useState("")
     const navigate = useNavigate();
     const [moodText, setMoodText] = useState("");
     const [searchText, setSearchText] = useState("");
     const [fadeOut, setFadeOut] = useState(false);
+    
 
     const handleNavigation = (path: string) => {
         setFadeOut(true);
@@ -16,6 +16,13 @@ function WelcomePage(){
             navigate(path);
         }, 500)
     }
+
+    useEffect(() => {
+        const storedName = localStorage.getItem("userName");
+        if(storedName){
+            setUserName(storedName);
+        }
+    }, [])
 
 
     return(
