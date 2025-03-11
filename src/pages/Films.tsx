@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import FilmModal from "../Modal";
+import config from "../config";
 
 interface Cast {
     fullName: string;
@@ -33,7 +34,7 @@ function Films() {
 
         const fetchFilms = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/films/byGenre?genre=${encodeURIComponent(genre)}`);
+                const response = await fetch(`${config.apiUrl}/films/byGenre?genre=${encodeURIComponent(genre)}`);
                 if (!response.ok){
                     throw new Error("Failed to fetch films")
                 }

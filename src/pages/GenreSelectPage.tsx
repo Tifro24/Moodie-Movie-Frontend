@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import config from "../config";
 
 function GenreSelectPage(){
     const [genres, setGenres]  = useState<string[]>([])
@@ -16,7 +17,7 @@ function GenreSelectPage(){
 
 
     useEffect(() => {
-        fetch(`http://localhost:8080/preferences/byMood?mood=${mood}`)
+        fetch(`${config.apiUrl}/preferences/byMood?mood=${mood}`)
         .then((response) => response.json())
         .then((data) => {
             console.log("Fetched data:", data)

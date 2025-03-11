@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import config from "../config";
 
 function SearchFilmsPage(){
     const [query, setQuery] = useState("");{
@@ -7,7 +8,7 @@ function SearchFilmsPage(){
     const[filteredFilms, setFilteredFilms] = useState<{title: string; description: string}[]>([])
 
     useEffect(() => {
-        fetch("http://localhost:8080/films")
+        fetch(`${config.apiUrl}/films`)
         .then((response) => response.json())
         .then((data) => setFilms(data))
         .catch((error) => console.error("Error fetching films: ", error))
