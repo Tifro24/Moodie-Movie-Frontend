@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import WelcomePage from "./pages/WelcomePage";
 import MoodsPage from "./pages/MoodsPage";
 import SearchFilmsPage from "./pages/SearchFilmsPage";
+import WatchlistPage from "./pages/WatchlistPage";
 
 function App() {
  
@@ -19,7 +20,8 @@ function App() {
       <Route path="/moods" element={<MoodsPage />} />
       <Route path="/genres" element={<GenreSelectPage />} />
       <Route path="/films" element={<Films />} />
-      <Route path="/search" element={<SearchFilmsPage />} />     
+      <Route path="/search" element={<SearchFilmsPage />} />  
+      <Route path="/watchlist" element={<WatchlistPage/>} />   
     </Routes>
   </Router></div>
     
