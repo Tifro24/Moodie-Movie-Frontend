@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const colours = ["color1", "color2", "color3", "color4", "color5", "color6", "color7"];
@@ -19,6 +19,13 @@ function LandingPage() {
             return newClasses
         })
     }
+
+    useEffect(() => {
+        const storedUsername = localStorage.getItem("username");
+        if (storedUsername) {
+            navigate("/welcome"); // 🚀 Redirect if username exists
+        }
+    }, [navigate]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

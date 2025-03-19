@@ -28,6 +28,7 @@ function GenreSelectPage(){
     
     return (
         <div className={`genre-select-page page-container ${fadeOut ? "fade-out" : ""}`}>
+
             <h1 className="fade-in-title"> We recommend these genres based on your chosen mood!</h1>
             <div className="genre-buttons fade-in-button">
                     {genres.map((genre) => (

@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import config from "../config";
 import { Watchlist } from "../Watchlist";
 import WatchlistModal from "../WatchlistModal";
+import { useNavigate } from "react-router-dom";
 
 function WatchlistPage(){
     const [watchlists, setWatchlists] = useState<Watchlist[]>([]);
@@ -9,6 +10,7 @@ function WatchlistPage(){
     const [newWatchlistName, setNewWatchlistName] = useState("");
     const [selectedMood, setSelectedMood] = useState("");
     const [moods, setMoods] = useState<{id: number; mood: string}[]>([]);
+    const navigate = useNavigate();
 
 
     //Fetch existing watchlists
@@ -94,7 +96,13 @@ const handleDeleteWatchlist = (watchlistId: number) => {
 
 
 return (
+
+    
     <div className="watchlist-container">
+
+        <button className="home-btn" onClick={() => navigate("/welcome")}>
+            Home 
+        </button>
         <h1>Your Watchlists</h1>
 
         {/* Create watchlist */}

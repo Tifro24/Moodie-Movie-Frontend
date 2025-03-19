@@ -7,13 +7,15 @@ import WelcomePage from "./pages/WelcomePage";
 import MoodsPage from "./pages/MoodsPage";
 import SearchFilmsPage from "./pages/SearchFilmsPage";
 import WatchlistPage from "./pages/WatchlistPage";
+import WatchlistButton from "./WatchlistButton";
 
 function App() {
  
 
   return (
     <>
-    <div className="app-background"><Router>  
+    <div className="app-background"><Router>
+      <WatchlistButton/>  
     <Routes> 
       <Route path="/" element={<LandingPage />} />
       <Route path="/welcome" element={<WelcomePage />} />
@@ -21,7 +23,7 @@ function App() {
       <Route path="/genres" element={<GenreSelectPage />} />
       <Route path="/films" element={<Films />} />
       <Route path="/search" element={<SearchFilmsPage />} />  
-      <Route path="/watchlist" element={<WatchlistPage/>} />   
+      <Route path="/watchlist" element={<WatchlistPage/>} />  
     </Routes>
   </Router></div>
     

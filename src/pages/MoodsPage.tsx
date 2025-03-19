@@ -19,6 +19,9 @@ function MoodsPage(){
 
     return(
         <div className={`moods-page page-container ${fadeOut ? "fade-out" : ""}`}>
+             <button className="back-btn" onClick={() => navigate("/welcome")}>
+                 Back
+            </button>
             <h1 className="fade-in-title">Select Your Mood</h1>
             <div className="moods-buttons fade-in-button">
                 {moods.map((mood) => (
