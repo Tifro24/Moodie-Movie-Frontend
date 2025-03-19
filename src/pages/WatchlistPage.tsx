@@ -8,20 +8,26 @@ function WatchlistPage(){
     const [selectedWatchlist, setSelectedWatchlist] = useState<Watchlist| null>(null);
     const [newWatchlistName, setNewWatchlistName] = useState("");
     const [selectedMood, setSelectedMood] = useState("");
-    const [moods, setMoods] = useState<string[]>([]);
+    const [moods, setMoods] = useState<{id: number; mood: string}[]>([]);
 
 
     //Fetch existing watchlists
     useEffect(() => {
     fetch(`${config.apiUrl}/watchlist`)
     .then((response) => response.json())
-    .then((data) => setWatchlists(data))
+    .then((data) => {
+        console.log("Fetched watchlists:", data)
+        setWatchlists(data)
+    })
     .catch((error) => console.error("Error fetching watchlists:", error));
 
     // Fetch available moods
     fetch(`${config.apiUrl}/preferences`)
     .then((response) => response.json())
-    .then((data) => setMoods(data.map((m:any) => m.mood)))
+    .then((data) => {
+        console.log("Moods fetched:", data);
+        setMoods(data);
+    })
     .catch((err) => console.error("Error fetching moods:", err));
 }, []);
 
@@ -36,19 +42,42 @@ const handleCloseModal = () => {
 };
 
 const handleCreateWatchlist = () => {
-    if (!newWatchlistName.trim() || !selectedMood) return;
+    if (!newWatchlistName.trim() || !selectedMood) {
+        console.error(("Missing name or mood when creating watchlist"))
+        return;
+    } 
 
-    fetch(`${config.apiUrl}/watchlist`, {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({name: newWatchlistName, mood: selectedMood}),
-    })
+    const sessionId = localStorage.getItem("sessionId") ?? "";
+    const selectedMoodId = Number(selectedMood);
+
+    console.log("Available moods:", moods);
+    console.log("Selected mood:", selectedMood);
+
+    const selectedMoodObject = moods.find((m: any) => Number(m.id) === selectedMoodId);
+
+if (!selectedMoodObject) {
+    console.error("Error: Could not find a matching mood.");
+} else {
+    console.log("Matched Mood:", selectedMoodObject);
+}
+
     
-    .then((response) => response.json())
+    console.log("Resolved moodId:", selectedMoodId);
+
+    fetch(`${config.apiUrl}/watchlist?sessionId=${sessionId}&name=${encodeURIComponent(newWatchlistName)}&moodId=${selectedMoodId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then((newWatchlist) => {
-        setWatchlists([...watchlists, newWatchlist]);
+        setWatchlists((prevWatchlists) => [...prevWatchlists, newWatchlist]);
         setNewWatchlistName("");
-        setSelectedMood("")
+        setSelectedMood("");
     })
     .catch((err) => console.error("Error creating watchlist:", err));
 };
@@ -70,20 +99,23 @@ return (
 
         {/* Create watchlist */}
         <div className="create-watchlist">
-           <input 
-           type="text"
-           placeholder="Enter watchlist name..."
-           value={newWatchlistName}
-           onChange={(e) => setNewWatchlistName(e.target.value)} />
+            <input 
+            type="text"
+            placeholder="Enter watchlist name..."
+            value={newWatchlistName}
+            onChange={(e) => setNewWatchlistName(e.target.value)} />
 
-           <select value={selectedMood} onChange={(e) => setSelectedMood(e.target.value)}>
-            <option value="">Select a mood</option>
-            {moods.map((mood, index) => (
-                <option key={index} value={mood}>
-                    {mood}
-                </option>
-            ))}
-           </select>
+            <div className="mood-dropdown">
+                <select value={selectedMood} onChange={(e) => setSelectedMood(e.target.value)}>
+                    <option value="">Select a mood</option>
+                    {moods.map((m:any) => (
+                        <option key={m.id} value={m.id.toString()}>
+                            {m.mood}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            
 
            <button onClick={handleCreateWatchlist}>Create Watchlist</button>
         </div>
@@ -94,7 +126,7 @@ return (
             {watchlists.map((watchlist : Watchlist) => (
                 <li className="watchlist-li" key={watchlist.id}>
                     <span onClick={() => handleSelectWatchlist(watchlist)}>
-                        {watchlist.name} ({watchlist.mood.mood})
+                        {watchlist.name} ({watchlist.mood.mood ?? "No mood"})
                     </span>
                     <button className="delete-btn" onClick={() => handleDeleteWatchlist(watchlist.id)}>🗑️</button>
                 </li>
@@ -109,14 +141,23 @@ return (
                 watchlist={selectedWatchlist}
                 onClose={handleCloseModal}
                 onAddFilm={(watchlistId, film) => {
+
+                    console.log(`Attempting to add film ID ${film.id} to watchlist ID ${watchlistId}`);
+
                     fetch(`${config.apiUrl}/watchlist/${watchlistId}/add-film/${film.id}`, {
                         method: "POST",
+                        headers : {"Content-Type": "application/json"},
                     })
-                        .then((response) => response.json())
+                        .then((response) => {
+                        console.log(`🔍 Response Status: ${response.status}`);
+                        if (!response.ok) throw new Error("Failed to add film");
+                        return response.json();
+                        })
                         .then((updatedWatchlist) => {
                             setWatchlists((prev) =>
                                 prev.map((w) => (w.id === watchlistId ? updatedWatchlist : w))
                             );
+                            setSelectedWatchlist(updatedWatchlist);
                         })
                         .catch((err) => console.error("Error adding film:", err));
                 }}
@@ -125,11 +166,18 @@ return (
                     fetch(`${config.apiUrl}/watchlist/${watchlistId}/remove-film/${filmId}`, {
                         method:"DELETE",
                     })
-                    .then((response) => response.json())
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Failed to remove film")
+                        }
+                        return response.json()
+                    })
                     .then((updatedWatchlist) => {
                         setWatchlists((prev) =>
                             prev.map((w) => (w.id === watchlistId ? updatedWatchlist : w))
                         );
+
+                        setSelectedWatchlist(updatedWatchlist);
                     })
                     .catch((err) => console.error("Error deleting film", err));
                 }}

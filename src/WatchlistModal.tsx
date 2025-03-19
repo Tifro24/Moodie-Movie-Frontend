@@ -27,18 +27,30 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
     onRemoveFilm,
 }) => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [searchResults, setSearchResults] = useState<Film[]>([]);
+    const [filteredFilms, setFilteredFilms] = useState<Film[]>([]);
+    const [allFilms, setAllFilms] = useState<Film[]>([]);
 
     useEffect(() => {
-        if (searchQuery.length > 0) {
-            fetch(`${config.apiUrl}/films?search=${searchQuery}`)
-            .then((response) => response.json())
-            .then((data) => setSearchResults(data))
-            .catch((err) => console.error("Error fetching films:", err))
+        fetch(`${config.apiUrl}/films`)
+        .then((response) => response.json())
+        .then((data) => {
+            setAllFilms(data);
+            setFilteredFilms(data)
+        })
+        .catch((error) => console.error("Error fetching films: ", error))
+    }, [])
+
+    useEffect(() => {
+        if (searchQuery.trim() === ""){
+            setFilteredFilms(allFilms)
         } else {
-            setSearchResults([])
+            setFilteredFilms(
+                allFilms.filter((film) =>
+                    film.title.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+            );
         }
-    }, [searchQuery]);
+    }, [searchQuery, allFilms])
 
     if (!watchlist) return null;
 
@@ -65,7 +77,7 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)} />
                     <ul className="search-results">
-                        {searchResults.map((film) => (
+                        {filteredFilms.map((film) => (
                             <li key={film.id} onClick={() => onAddFilm(watchlist.id, film)}>
                                 ➕{film.title}
                             </li>
