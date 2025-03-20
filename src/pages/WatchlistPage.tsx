@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import config from "../config";
-import { Watchlist } from "../Watchlist";
-import WatchlistModal from "../WatchlistModal";
+import { Watchlist } from "../components/Watchlist";
+import WatchlistModal from "../components/WatchlistModal";
 import { useNavigate } from "react-router-dom";
 
 function WatchlistPage(){
@@ -33,16 +33,13 @@ function WatchlistPage(){
     .catch((err) => console.error("Error fetching moods:", err));
 }, []);
 
+
  // Handle selecting  a watchlist  
 const handleSelectWatchlist = (watchlist : Watchlist) => {
     setSelectedWatchlist(watchlist);
 };
 
-// Handle closing the modal
-const handleCloseModal = () => {
-    setSelectedWatchlist(null)
-};
-
+// Handle creating the watchlist
 const handleCreateWatchlist = () => {
     if (!newWatchlistName.trim() || !selectedMood) {
         console.error(("Missing name or mood when creating watchlist"))
@@ -52,9 +49,6 @@ const handleCreateWatchlist = () => {
     const sessionId = localStorage.getItem("sessionId") ?? "";
     const selectedMoodId = Number(selectedMood);
 
-    console.log("Available moods:", moods);
-    console.log("Selected mood:", selectedMood);
-
     const selectedMoodObject = moods.find((m: any) => Number(m.id) === selectedMoodId);
 
 if (!selectedMoodObject) {
@@ -63,8 +57,6 @@ if (!selectedMoodObject) {
     console.log("Matched Mood:", selectedMoodObject);
 }
 
-    
-    console.log("Resolved moodId:", selectedMoodId);
 
     fetch(`${config.apiUrl}/watchlist?sessionId=${sessionId}&name=${encodeURIComponent(newWatchlistName)}&moodId=${selectedMoodId}`, {
         method: "POST",
@@ -142,22 +134,27 @@ return (
         </ul>
 
 
-        {/* 🔹 Watchlist Modal */}  
+        {/* Watchlist Modal */}  
         
         {selectedWatchlist && (
             <WatchlistModal 
                 watchlist={selectedWatchlist}
-                onClose={handleCloseModal}
+                onClose={() => {
+                    console.log("Closing modal");
+                    setSelectedWatchlist(null);
+                }}
                 onAddFilm={(watchlistId, film) => {
 
                     console.log(`Attempting to add film ID ${film.id} to watchlist ID ${watchlistId}`);
+
+                    
 
                     fetch(`${config.apiUrl}/watchlist/${watchlistId}/add-film/${film.id}`, {
                         method: "POST",
                         headers : {"Content-Type": "application/json"},
                     })
                         .then((response) => {
-                        console.log(`🔍 Response Status: ${response.status}`);
+                        console.log(` Response Status: ${response.status}`);
                         if (!response.ok) throw new Error("Failed to add film");
                         return response.json();
                         })

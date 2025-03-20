@@ -2,13 +2,31 @@
 import { useState, useEffect } from "react";
 import config from "../config";
 import {  useNavigate } from "react-router-dom";
+import { Film } from "../components/Watchlist";
+import SelectWatchlistModal from "../components/SelectWatchlistModal";
+import { useWatchlistActions } from "../hooks/useWatchlistActions";
+
+
+
 
 function SearchFilmsPage(){
     const [query, setQuery] = useState("");
-    const [films, setFilms] = useState<{title: string; description: string}[]>([]);
-    const[filteredFilms, setFilteredFilms] = useState<{title: string; description: string}[]>([])
+    const [films, setFilms] = useState<Film[]>([]);
+    const[filteredFilms, setFilteredFilms] = useState<Film[]>([])
     const[fadeOut, setFadeOut] = useState(false);
     const navigate = useNavigate();
+    const [chosenFilm, setChosenFilm] = useState< Film | null>(null)
+    const {watchlists, setWatchlists, onConfirmAdd} = useWatchlistActions();
+
+    useEffect(() => {
+        fetch(`${config.apiUrl}/watchlist`)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Fetched watchlists:", data)
+            setWatchlists(data)
+        })
+        .catch((error) => console.error("Error fetching watchlists:", error));
+    },[])
 
 
     useEffect(() => {
@@ -37,6 +55,7 @@ function SearchFilmsPage(){
         }, 1000)
 
     }
+
  
     return (
         <div className={`search-films-page ${fadeOut ? "fade-out" : ""}`}>
@@ -61,6 +80,9 @@ function SearchFilmsPage(){
                         <div key={index} className="film-card">
                             <h3>{film.title}</h3>
                             <p>{film.description}</p>
+                            <button onClick={() =>{setChosenFilm(film)}}>
+                                    ➕ Add to Watchlist
+                            </button>
                         </div>
                     ))
                 ) : query ? (
@@ -69,6 +91,15 @@ function SearchFilmsPage(){
                     <p>Start typing to search for a film...</p>
                 )}
              </div>
+
+             {chosenFilm && (
+                <SelectWatchlistModal
+                    chosenFilm={chosenFilm}
+                    onClose={() => setChosenFilm(null)}
+                    watchlists={watchlists}
+                    onConfirmAdd={onConfirmAdd} 
+                />
+             )}
         </div>
     );
 };

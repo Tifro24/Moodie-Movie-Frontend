@@ -7,7 +7,7 @@ import WelcomePage from "./pages/WelcomePage";
 import MoodsPage from "./pages/MoodsPage";
 import SearchFilmsPage from "./pages/SearchFilmsPage";
 import WatchlistPage from "./pages/WatchlistPage";
-import WatchlistButton from "./WatchlistButton";
+import WatchlistButton from "./components/WatchlistButton";
 
 function App() {
  

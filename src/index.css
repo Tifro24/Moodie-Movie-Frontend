@@ -640,7 +640,7 @@ width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .watchlist-modal{
@@ -794,4 +794,8 @@ width: 80%;
 
 .back-btn:active {
   transform: scale(0.95);
+}
+
+.watchlist-options{
+  cursor: pointer;
 }

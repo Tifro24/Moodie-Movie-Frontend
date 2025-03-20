@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import FilmModal from "../Modal";
+import FilmModal from "../components/Modal";
 import config from "../config";
+import { Film } from "../components/Watchlist";
 
-interface Cast {
-    fullName: string;
-  }
+
+
   
-  interface Film {
-    title: string;
-    description: string
-    language: string
-    cast: Cast[];
-  }
 
   const moviePosters = ["../public/movie-poster1.jpg", "../public/movie-poster2.jpg", "../public/movie-poster3.jpg", "../public/movie-poster4.jpg", "../public/movie-poster5.jpg",
                         "../public/movie-poster6.jpg", "../public/movie-poster7.jpg", "../public/movie-poster8.jpg", "../public/movie-poster9.jpg", "../public/movie-poster10.jpg"
@@ -20,7 +14,7 @@ interface Cast {
 
 function Films() {
     const [films, setFilms] = useState<Film[]>([]);
-    const [selectedFilm, setSelectedFilm] = useState<{ title: string; description: string; language: string; cast: Cast[]; poster: string } | null>(null);
+    const [selectedFilm, setSelectedFilm] = useState< Film | null>(null);
     const [searchParams] = useSearchParams();
     const genre = searchParams.get("genre")
     const [fadeOut, setFadeOut] = useState(false);
@@ -63,6 +57,7 @@ return(
                     const poster = moviePosters[index % moviePosters.length];
                     return (
                         <div key={index} className="film-card" onClick={() => { console.log(film); setSelectedFilm({
+                            id: film.id,
                             title: film.title,
                             description: film.description,
                             language: film.language,
