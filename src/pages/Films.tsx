@@ -8,8 +8,8 @@ import { Film } from "../components/Watchlist";
 
   
 
-  const moviePosters = ["../public/movie-poster1.jpg", "../public/movie-poster2.jpg", "../public/movie-poster3.jpg", "../public/movie-poster4.jpg", "../public/movie-poster5.jpg",
-                        "../public/movie-poster6.jpg", "../public/movie-poster7.jpg", "../public/movie-poster8.jpg", "../public/movie-poster9.jpg", "../public/movie-poster10.jpg"
+  const moviePosters = ["/movie-poster1.jpg", "/movie-poster2.jpg", "/movie-poster3.jpg", "/movie-poster4.jpg", "/movie-poster5.jpg",
+                        "/movie-poster6.jpg", "/movie-poster7.jpg", "/movie-poster8.jpg", "/movie-poster9.jpg", "/movie-poster10.jpg"
    ]
 
 function Films() {
