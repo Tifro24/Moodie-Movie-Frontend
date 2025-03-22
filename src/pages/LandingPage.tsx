@@ -23,7 +23,7 @@ function LandingPage() {
     useEffect(() => {
         const storedUsername = localStorage.getItem("username");
         if (storedUsername) {
-            navigate("/welcome"); // 🚀 Redirect if username exists
+            navigate("/welcome"); //  Redirect if username exists
         }
     }, [navigate]);
 

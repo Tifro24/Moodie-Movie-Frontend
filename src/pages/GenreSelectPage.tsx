@@ -36,7 +36,7 @@ function GenreSelectPage(){
                         {genre}
                         </button>
                     ))}
-                        <button className="go-back-button fade-in-button" onClick={() => handleNavigation("/moods")}>Go back</button>
+                        <button className="gsp-close go-back-button fade-in-button" onClick={() => handleNavigation("/moods")}>Go back</button>
             </div>
             
         </div>

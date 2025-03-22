@@ -64,12 +64,12 @@ function FilmModal ({film, onClose} : FilmModalProps){
                     <li key={index}>{actor.fullName}</li>
                     ))}
                 </ul>
-                <button onClick={() => {
+                <button className="add-to-watchlist-btn" onClick={() => {
                     setChosenFilm(film)
                     console.log(`${film.title} film and ${film.id}`);}}>
-                        ➕ Add to Watchlist
+                         Add to Watchlist
                 </button>
-                <button onClick={onClose}>Close</button>
+                <button className="add-to-watchlist-btn" onClick={onClose}>Close</button>
             </div>
            
         </div>

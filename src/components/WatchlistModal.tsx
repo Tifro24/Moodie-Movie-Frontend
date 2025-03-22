@@ -65,7 +65,7 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
                     {watchlist.films.map((film, index) => (
                         <li key={index}>
                             {index + 1}. {film.title} {" "}
-                            <button onClick={() => onRemoveFilm(watchlist.id, film.id)}>❌</button>
+                            <button className="watchlist-x-btn" onClick={() => onRemoveFilm(watchlist.id, film.id)}>❌</button>
                         </li>
                     ))}
                 </ul>
@@ -78,7 +78,7 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
                     onChange={(e) => setSearchQuery(e.target.value)} />
                     <ul className="search-results">
                         {filteredFilms.map((film) => (
-                            <li key={film.id} onClick={() => onAddFilm(watchlist.id, film)}>
+                            <li className="watchlist-search-items" key={film.id} onClick={() => onAddFilm(watchlist.id, film)}>
                                 ➕{film.title}
                             </li>
                         ))}

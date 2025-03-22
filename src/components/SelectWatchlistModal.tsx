@@ -51,7 +51,7 @@ const SelectWatchlistModal: React.FC<SelectWatchlistModalProps> = ({
                 ) : (
                     <ul className="watchlist-options">
                         {watchlists.map((watchlist) => (
-                            <li key={watchlist.id} onClick={() => onConfirmAdd(watchlist.id, chosenFilm, watchlist.name)}>
+                            <li className="watchlist-options-list" key={watchlist.id} onClick={() => onConfirmAdd(watchlist.id, chosenFilm, watchlist.name)}>
                                 {watchlist.name}
                             </li>
                         ))}

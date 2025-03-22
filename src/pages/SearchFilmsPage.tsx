@@ -74,14 +74,14 @@ function SearchFilmsPage(){
             </div>
             
 
-             <div className="film-container">
+             <div className="search-film-container">
                 {filteredFilms.length > 0 ? (
                     filteredFilms.map((film,index) => (
-                        <div key={index} className="film-card">
+                        <div key={index} className="search-film-card">
                             <h3>{film.title}</h3>
                             <p>{film.description}</p>
-                            <button onClick={() =>{setChosenFilm(film)}}>
-                                    ➕ Add to Watchlist
+                            <button className="add-to-watchlist-btn" onClick={() =>{setChosenFilm(film)}}>
+                                     Add to Watchlist
                             </button>
                         </div>
                     ))
